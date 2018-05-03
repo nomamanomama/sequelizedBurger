@@ -1,0 +1,75 @@
+<h1>Eat Da Burger</h1>
+<div class="container">
+    <div class="row burgerpic">
+        <img src="./assets/img/burger.png" alt="Burger Pic">
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <h2>Available Burgers</h2>
+            {{#each burgers}}
+                {{#unless devoured}}
+                    <p>{{burger_name}}</p>
+                    <button class='eat-burger' data-id = "{{id}}" value="{{burger_name}}" type='button'>Devour it!</button>
+                    <hr> 
+                {{/unless}}
+            {{/each}}
+        </div>
+        <div class="col-6">
+            <h2>Devoured Burgers</h2>
+            {{#each burgers}}
+                {{#if devoured}}
+                <p>{{burger_name}}</p>
+                <hr> 
+                {{/if}}
+            {{/each}}
+        </div>
+    </div>
+    <div class="row">
+        <form id="newburger">
+            <textarea type="text" name="burgername" placeholder="new burger name"></textarea>
+            <button id="addburger" type="button">Submit</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).on("click","#addburger", function (event) {
+        console.log("adding burger");
+            // Make sure to preventDefault on a submit event.
+            event.preventDefault();
+
+            var burgername = $("#newburger [name=burgername]").val().trim();
+            var newBurger = { name: burgername };
+            console.log("new burger name: " + burgername);
+            // Send the PUT request.
+            $.ajax("/burger/create", {
+                type: "POST",
+                data: newBurger
+            }).then(
+                function () {
+                    console.log("added burger " + name);
+                    // Reload the page to get the updated list
+                    location.reload();
+                }
+            );
+        });
+    
+    $(".eat-burger").on("click", function(event){
+
+        var id = $(this).data("id");
+
+                   // Send the PUT request.
+        $.ajax("/burger/update/" + id, {
+            type: "PUT"
+        }).then(
+            function () {
+                console.log("devoured burger " + id);
+                // Reload the page to get the updated list
+                location.reload();
+            }
+            );
+
+    })
+
+</script>
+
