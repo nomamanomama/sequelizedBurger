@@ -1,0 +1,49 @@
+body {
+    background: linear-gradient(to bottom right, rgb(255, 102, 0), yellow);
+    font-family: 'Swanky and Moo Moo', cursive;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+h1 {
+    font-size: 3rem;
+    font-family: 'Slackey', cursive;
+}
+
+h2 {
+    font-family: 'Bungee Shade', cursive;
+}
+
+.container {
+    justify-content: center;
+    margin: 50px;
+}
+
+.burgerpic {
+    max-height: 300px;
+    margin-bottom: 30px;
+}
+
+.devour-btn {
+    font-family: 'Carrois Gothic SC', sans-serif;
+}
+
+.new-burger-text {
+    font-family: 'Swanky and Moo Moo', cursive;
+    width: 400px;
+}
+
+.bun {
+    margin: 10px 0px 10px;
+    max-width: 400px;
+    max-height: 150px;
+}
+
+.add-box{
+    padding:15px;
+}
+
+#addburger {
+    width: 400px;
+    font-family: 'Carrois Gothic SC', sans-serif;
+}

@@ -1,20 +1,26 @@
-<h1>Eat Da Burger</h1>
+
 <div class="container">
-    <div class="row burgerpic">
-        <img src="./assets/img/burger.png" alt="Burger Pic">
+    <div class="row d-flex justify-content-center">
+        <div class="col-12 d-flex justify-content-center">
+            <h1>Eat Da Burger</h1>
+        </div>
+        <div class="col-12 d-flex justify-content-center">
+            <img class="burgerpic" src="/assets/img/burger.png" alt="Burger Pic">
+        </div>
     </div>
     <div class="row">
-        <div class="col-6">
+        <div class="col-6 available-box">
             <h2>Available Burgers</h2>
             {{#each burgers}}
                 {{#unless devoured}}
                     <p>{{burger_name}}</p>
-                    <button class='eat-burger' data-id = "{{id}}" value="{{burger_name}}" type='button'>Devour it!</button>
+                    <button class='devour-btn' data-id = "{{id}}" value="{{burger_name}}" type='button'><i class="fas fa-utensils"></i> 
+                    Devour it!</button>
                     <hr> 
                 {{/unless}}
             {{/each}}
         </div>
-        <div class="col-6">
+        <div class="col-6 eaten-box">
             <h2>Devoured Burgers</h2>
             {{#each burgers}}
                 {{#if devoured}}
@@ -24,11 +30,24 @@
             {{/each}}
         </div>
     </div>
-    <div class="row">
-        <form id="newburger">
-            <textarea type="text" name="burgername" placeholder="new burger name"></textarea>
-            <button id="addburger" type="button">Submit</button>
+    <div class="add-box">
+        <div class="row d-flex justify-content-center">
+            <h2>Add a Burger</h2>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <img class="bun" src="/assets/img/bun-top.png" alt="Bun Top">
+        </div>
+        <form id="newburger" >
+            <div class="row  d-flex justify-content-center">
+            <textarea class="new-burger-text" type="text" name="burgername" placeholder="new burger name"></textarea>
+            </div>
+            <div class="row  d-flex justify-content-center">
+                <button id="addburger" type="button" class="btn btn-success">Submit</button>
+            </div>
         </form>
+        <div class="row  d-flex justify-content-center">
+            <img class="bun" src="/assets/img/bun-btm.png" alt="Bun Bottom">
+        </div>
     </div>
 </div>
 
@@ -54,7 +73,7 @@
             );
         });
     
-    $(".eat-burger").on("click", function(event){
+    $(".devour-btn").on("click", function(event){
 
         var id = $(this).data("id");
 

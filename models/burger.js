@@ -1,24 +1,25 @@
-var orm = require('../config/orm.js');
+// Dependencies
+// =============================================================
 
-// create the code that will call the ORM functions using burger specific input for the ORM
 
-var burger = {
-    selectAll: function (cb){
-        orm.selectAll('burgers', function(res){
-            cb(res);
+// Creates a "Burger" model that matches up with DB
+module.exports = function (sequelize, DataTypes) {
+    var Burger = sequelize.define("burger",
+        {
+            burger_name: {
+                type: DataTypes.STRING,
+                validate: {
+                    len: [1,140]
+                }
+            },
+            devoured: {
+                type: DataTypes.BOOLEAN,
+                defaultValue: false
+            }
+        }, 
+        {
+            timestamps: false
         });
-    },
-    // (table, condition, conditionvalue, updateCol, updateVal, callback)
-    updateOne: function (conditionVal, updateCol, updateVal, cb) {
-        orm.updateOne('burgers', conditionVal, updateCol, updateVal, function (res) {
-            cb(res);
-        });
-    },
-    insertOne: function (value, cb) {
-        orm.insertOne('burgers', 'burger_name', value, function (res) {
-            cb(res);
-        });
-    }
+    return Burger;
+
 }
-
-module.exports = burger;
