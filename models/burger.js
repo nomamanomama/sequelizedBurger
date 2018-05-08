@@ -4,7 +4,7 @@
 
 // Creates a "Burger" model that matches up with DB
 module.exports = function (sequelize, DataTypes) {
-    var Burger = sequelize.define("burger",
+    var Burger = sequelize.define("Burger",
         {
             burger_name: {
                 type: DataTypes.STRING,
@@ -20,6 +20,16 @@ module.exports = function (sequelize, DataTypes) {
         {
             timestamps: false
         });
+
+    Burger.associate = function (models) {
+        // Associating Author with Posts
+        // When an Author is deleted, also delete any associated Posts
+        Burger.hasMany(models.Customer, {
+            onDelete: "cascade"
+        });
+    }
+
+
     return Burger;
 
 }

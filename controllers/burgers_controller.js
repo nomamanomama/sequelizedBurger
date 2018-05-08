@@ -4,20 +4,38 @@ var app = express();
 var router = express.Router();
 
 var db = require('../models');
-var burger = require('../models/burger.js');
 
 // Routes
 
 router.get("/", function (req, res) {
-        
-        console.log('burger: ' + db.Burger);
+        var burgers = [];
         //get available burgers
-        db.burger.findAll({})
+        db.Burger.findAll({
+                include: [{
+                        model: db.Customer
+                }]
+        })
                 .then(function (results) {
-                        var burgers = [];
+
                         results.forEach(element => {
-                                burgers.push(element);
+                                var isFav = element.Customers.length > 0;
+                                var customerList = [];
+                                if(isFav){
+                                        element.Customers.forEach(item =>{
+                                                customerList.push({customer_name: item.customer_name});
+                                        });
+                                }
+                                var burger = {
+                                        id: element.id,
+                                        burger_name: element.burger_name,
+                                        devoured: element.devoured,
+                                        favorite: isFav,
+                                        customers: customerList
+                                };
+                                //console.log(burger);
+                                burgers.push(burger);
                         });
+
                         var hbrObject = {
                                 burgers: burgers
                         };
@@ -31,7 +49,7 @@ router.post("/burger/create", function (req, res){
         var burger = req.body;
 
         // Then add the burger to the database using sequelize
-        db.burger.create({
+        db.Burger.create({
                 burger_name: burger.name,
                 devoured: false,
                 
@@ -43,7 +61,7 @@ router.post("/burger/create", function (req, res){
 
 router.put("/burger/update/:id", function (req, res) {
        
-       db.burger.update(
+       db.Burger.update(
                {devoured: true},
                {where: 
                         {id: req.params.id}
@@ -52,6 +70,17 @@ router.put("/burger/update/:id", function (req, res) {
        .then(function(results){
                res.json(results);
         });
+});
+
+router.post("/burger/favorite", function(req,res){
+        console.log(req.body.customer_name + " " + req.body.burger_id);
+        db.Customer.create({
+                customer_name: req.body.customer_name,
+                BurgerId: req.body.burger_id
+        })
+        .then(function(results){
+                res.json(results);
+        })
 });
 
 
