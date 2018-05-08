@@ -31,7 +31,7 @@ $(document).ready(function () {
     console.log(this);
     var id = $(this).data("burgerid");
     console.log("ID: " + id);
-    var name = $(this).val();
+    var name = $(this).data("burgerName");
     console.log("name: " + name);
     //set burger-id attribute on add button for the  modal
     $("#add-fav").data("burgerid", id);

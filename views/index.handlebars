@@ -8,8 +8,8 @@
             <img class="burgerpic" src="/assets/img/burger.png" alt="Burger Pic">
         </div>
     </div>
-    <div id="customerModal" class="modal fade modal-sm" tabindex="-1" role="dialog" aria-labelledby="customerModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
+    <div id="customerModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="customerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 id="fav-burger-name" data-burgerId=""></h5>
@@ -32,9 +32,9 @@
             {{#each burgers}}
                 {{#unless devoured}}
                     <p>{{burger_name}} 
-                        <button class="fav" href="/" data-burgerId="{{id}}" value="{{burger_name}}" data-toggle="modal" data-target="customerModal">
+                        <a class="fav" href="/" data-burgerId="{{id}}" data-burgerName ="{{burger_name}}" data-toggle="modal" data-target="customerModal">
                             <i class="fas fa-heart"></i>
-                        </button>
+                        </a>
                     </p>
                     <button class='devour-btn' data-id = "{{id}}" value="{{burger_name}}" type='button'><i class="fas fa-utensils"></i> 
                     Devour it!</button>
@@ -46,7 +46,11 @@
             <h2>Devoured Burgers</h2>
             {{#each burgers}}
                 {{#if devoured}}
-                <p>{{burger_name}}</p>
+                <p>{{burger_name}}
+                    <a class="fav" href="/" data-burgerId="{{id}}" value="{{burger_name}}" data-toggle="modal" data-target="customerModal">
+                        <i class="fas fa-heart"></i>
+                    </a>
+                </p>
                 <hr> 
                 {{/if}}
             {{/each}}
@@ -55,11 +59,8 @@
             <h2>Favorite Burgers</h2>
             {{#each burgers}} 
                 {{#if favorite}}
-                    <p>{{burger_name}} (Liked by: {{#each customers}}{{customer_name}}! {{/each}})</p>
+                    <p>{{burger_name}} - (<i class="fas fa-heart"></i> {{customers.length}})  Favorite of: {{#each customers}}{{customer_name}}! {{/each}}</p>
                     <hr> 
-                {{else}}
-                    <p>Nothing yet for this {{burger_name}}</p>
-                    <hr>
                 {{/if}} 
             {{/each}}
         </div>
