@@ -13,7 +13,8 @@ router.get("/", function (req, res) {
         db.Burger.findAll({
                 include: [{
                         model: db.Customer
-                }]
+                }],
+                order:[['burger_name', 'ASC']]
         })
                 .then(function (results) {
 
